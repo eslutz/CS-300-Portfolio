@@ -1,0 +1,57 @@
+//
+// Created by Eric Slutz on 10/15/22.
+//
+
+#ifndef PROJECT_2_COURSES_H
+#define PROJECT_2_COURSES_H
+
+#include <string>
+#include <vector>
+
+struct Course {
+	std::string courseId; // unique identifier
+	std::string courseName;
+	std::vector<std::string> coursePrerequisites;
+
+	Course() = default;
+};
+
+struct Node {
+	Course course;
+	Node *left;
+	Node *right;
+
+	// default constructor
+	Node() {
+		left = nullptr;
+		right = nullptr;
+	}
+
+	// initialize with a course
+	explicit Node(Course &newCourse) :
+			Node() {
+		course = newCourse;
+	}
+};
+
+class Courses {
+private:
+	Node* root;
+	void destroyRecursive(Node *node);
+	void addNode(Node *node, Course course);
+	void inOrder(Node *node);
+	void postOrder(Node *node);
+	void preOrder(Node *node);
+	Node *removeNode(Node *node, const std::string& courseId);
+public:
+	Courses();
+	virtual ~Courses();
+	void InOrder();
+	void PostOrder();
+	void PreOrder();
+	void Insert(Course bid);
+	void Remove(std::string& bidId);
+	Course Search(const std::string& bidId);
+};
+
+#endif //PROJECT_2_COURSES_H
