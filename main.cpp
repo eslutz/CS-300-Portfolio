@@ -5,7 +5,7 @@
 #include "Models/Courses.h"
 
 /**
- * Display the course information to the console (std::out)
+ * Display the course information to the console (std::cout)
  *
  * @param course struct containing the course info
  */
