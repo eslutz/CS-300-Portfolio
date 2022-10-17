@@ -28,7 +28,7 @@ struct Node {
 	}
 
 	// initialize with a course
-	explicit Node(Course &newCourse) :
+	Node(Course newCourse) :
 			Node() {
 		course = newCourse;
 	}
@@ -42,16 +42,16 @@ private:
 	void inOrder(Node *node);
 	void postOrder(Node *node);
 	void preOrder(Node *node);
-	Node *removeNode(Node *node, const std::string& courseId);
+	Node *removeNode(Node *node, std::string courseId);
 public:
 	Courses();
 	virtual ~Courses();
 	void InOrder();
 	void PostOrder();
 	void PreOrder();
-	void Insert(Course bid);
-	void Remove(std::string& bidId);
-	Course Search(const std::string& bidId);
+	void Insert(Course course);
+	void Remove(std::string courseId);
+	Course Search(std::string courseId);
 };
 
 #endif //PROJECT_2_COURSES_H

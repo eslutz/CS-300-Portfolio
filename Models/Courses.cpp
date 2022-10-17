@@ -54,7 +54,7 @@ void Courses::Insert(Course course) {
 		// root is equal to new node course
 		root = new Node(course);
 	}
-		// else
+	// else
 	else {
 		// add Node root and course
 		this->addNode(root, course);
@@ -64,7 +64,7 @@ void Courses::Insert(Course course) {
 /**
  * Remove a course
  */
-void Courses::Remove(std::string& courseId) {
+void Courses::Remove(std::string courseId) {
 	// remove node root courseID
 	this->removeNode(root, courseId);
 }
@@ -72,20 +72,25 @@ void Courses::Remove(std::string& courseId) {
 /**
  * Search for a course
  */
-Course Courses::Search(const std::string& courseId) {
+Course Courses::Search(std::string courseId) {
+	// convert courseID to upper case for use in comparison
+	transform(courseId.begin(), courseId.end(), courseId.begin(), ::toupper);
 	// set current node equal to root
 	Node *cur = root;
 	// keep looping downwards until bottom reached or matching courseId found
 	while (cur != nullptr) {
 		// if match found, return current course
-		if (cur->course.courseId == courseId) {
+		if (courseId.compare(cur->course.courseId) == 0) {
 			return cur->course;
 		}
-			// if course is smaller than current node then traverse left
+		else if (cur->course.courseId.compare(courseId) == 0) {
+			return cur->course;
+		}
+		// if course is smaller than current node then traverse left
 		else if (courseId.compare(cur->course.courseId) < 0) {
 			cur = cur->left;
 		}
-			// else larger so traverse right
+		// else larger so traverse right
 		else {
 			cur = cur->right;
 		}
@@ -110,12 +115,12 @@ void Courses::addNode(Node* node, Course course) {
 			node->left = new Node(course);
 			return;
 		}
-			// else recurse down the left node
+		// else recurse down the left node
 		else {
 			this->addNode(node->left, course);
 		}
 	}
-		// else
+	// else
 	else if (node != nullptr && node->course.courseId.compare(course.courseId) < 0) {
 		// if no right node
 		if (node->right == nullptr) {
@@ -123,7 +128,7 @@ void Courses::addNode(Node* node, Course course) {
 			node->right = new Node(course);
 			return;
 		}
-			// else if node is larger than add to right
+		// else if node is larger than add to right
 		else {
 			// recurse down the right node
 			this->addNode(node->right, course);
@@ -182,40 +187,40 @@ void Courses::preOrder(Node* node) {
 	}
 }
 
-Node *Courses::removeNode(Node *node, const std::string& courseId) {
+Node *Courses::removeNode(Node *node, const std::string courseId) {
 	if (node == nullptr) {
 		return node;
 	}
-		// if course is smaller than current node then traverse left
+	// if course is smaller than current node then traverse left
 	else if (courseId.compare(node->course.courseId) < 0) {
 		node->left = removeNode(node->left, courseId);
 	}
-		// else if course is larger than current node then traverse right
+	// else if course is larger than current node then traverse right
 	else if (courseId.compare(node->course.courseId) > 0) {
 		node->right = removeNode(node->right, courseId);
 	}
-		// else match point found
+	// else match point found
 	else {
 		// leaf node
 		if (node->left == nullptr && node->right == nullptr) {
 			delete node;
 			node = nullptr;
 		}
-			// else if left child
+		// else if left child
 		else if (node->left != nullptr && node->right == nullptr) {
 			Node *tmp = node;
 			node = node->left;
 			delete tmp;
 			tmp = nullptr;
 		}
-			// else if right child
+		// else if right child
 		else if (node->left == nullptr && node->right != nullptr) {
 			Node *tmp = node;
 			node = node->right;
 			delete tmp;
 			tmp = nullptr;
 		}
-			// else both children
+		// else both children
 		else {
 			// find the minimum of the right subtree nodes for bst
 			Node *tmp = node;
