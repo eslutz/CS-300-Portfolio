@@ -11,6 +11,7 @@
  */
 void displayCourse(const Course& course) {
 	std::string prerequisites;
+	// formats output for prerequisites, if there are any
 	if (course.coursePrerequisites.size() == 1) {
 		prerequisites = course.coursePrerequisites[0];
 	} else if (course.coursePrerequisites.size() > 1) {
@@ -22,6 +23,7 @@ void displayCourse(const Course& course) {
 		prerequisites = "n/a";
 	}
 
+	// prints out the course details
 	std::cout << course.courseId << ", "
 			  << course.courseName << std::endl;
 	std::cout << "Prerequisites: " << prerequisites << std::endl;
@@ -69,10 +71,9 @@ void loadCourses(const std::string& inputFilePath, Courses* coursesBst) {
 	file.close();
 }
 
-
 int main() {
 	// Define a binary search tree to hold all courses
-	Courses* coursesBst;
+	Courses *coursesBst;
 	coursesBst = new Courses();
 	Course course;
 	std::string inputPath, courseKey;

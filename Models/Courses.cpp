@@ -106,9 +106,9 @@ Course Courses::Search(std::string courseId) {
  * @param node Current node in tree
  * @param course Course to be added
  */
-void Courses::addNode(Node* node, Course course) {
+void Courses::addNode(Node *node, Course course) {
 	// if node is smaller than add to left
-	if (node != nullptr && node->course.courseId.compare(course.courseId) > 0) {
+	if (node != nullptr && (node->course.courseId.compare(course.courseId) > 0)) {
 		// if no left node
 		if (node->left == nullptr) {
 			// this node becomes left
@@ -121,7 +121,7 @@ void Courses::addNode(Node* node, Course course) {
 		}
 	}
 	// else
-	else if (node != nullptr && node->course.courseId.compare(course.courseId) < 0) {
+	else if (node != nullptr && (node->course.courseId.compare(course.courseId) < 0)) {
 		// if no right node
 		if (node->right == nullptr) {
 			// this node becomes right
@@ -136,7 +136,7 @@ void Courses::addNode(Node* node, Course course) {
 	}
 }
 
-void Courses::destroyRecursive(Node* node) {
+void Courses::destroyRecursive(Node *node) {
 	// if node is not equal to nullptr
 	if (node != nullptr) {
 		// call for destruction of any children
@@ -148,7 +148,7 @@ void Courses::destroyRecursive(Node* node) {
 	}
 }
 
-void Courses::inOrder(Node* node) {
+void Courses::inOrder(Node *node) {
 	// if node is not equal to null ptr
 	if (node != nullptr) {
 		// inOrder left
@@ -161,7 +161,7 @@ void Courses::inOrder(Node* node) {
 	}
 }
 
-void Courses::postOrder(Node* node) {
+void Courses::postOrder(Node *node) {
 	// if node is not equal to nullptr
 	if (node != nullptr) {
 		// postOrder left
@@ -174,7 +174,7 @@ void Courses::postOrder(Node* node) {
 	}
 }
 
-void Courses::preOrder(Node* node) {
+void Courses::preOrder(Node *node) {
 	// if node is not equal to nullptr
 	if (node != nullptr) {
 		// output courseID and courseName
