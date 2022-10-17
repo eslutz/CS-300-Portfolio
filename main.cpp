@@ -10,16 +10,16 @@
  * @param course struct containing the course info
  */
 void displayCourse(Course course) {
-	std::vector<std::string> coursePrerequsites = course.getCoursePrerequisites();
+	std::vector<std::string> coursePrerequisites = course.getCoursePrerequisites();
 	std::string prerequisites;
 	// formats output for prerequisites, if there are any
-	if (coursePrerequsites.size() == 1) {
+	if (coursePrerequisites.size() == 1) {
 		prerequisites = course.getCoursePrerequisites()[0];
-	} else if (coursePrerequsites.size() > 1) {
-		for (int i = 0; i < coursePrerequsites.size() - 1; i++) {
-			prerequisites += coursePrerequsites[i] + ", ";
+	} else if (coursePrerequisites.size() > 1) {
+		for (int i = 0; i < coursePrerequisites.size() - 1; i++) {
+			prerequisites += coursePrerequisites[i] + ", ";
 		}
-		prerequisites += coursePrerequsites.back();
+		prerequisites += coursePrerequisites.back();
 	} else {
 		prerequisites = "n/a";
 	}

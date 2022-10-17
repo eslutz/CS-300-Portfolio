@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <regex>
 #include "Courses.h"
 
 /**
