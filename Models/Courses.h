@@ -7,14 +7,7 @@
 
 #include <string>
 #include <vector>
-
-struct Course {
-	std::string courseId; // unique identifier
-	std::string courseName;
-	std::vector<std::string> coursePrerequisites;
-
-	Course() = default;
-};
+#include "Course.h"
 
 struct Node {
 	Course course;

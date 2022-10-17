@@ -9,23 +9,24 @@
  *
  * @param course struct containing the course info
  */
-void displayCourse(const Course& course) {
+void displayCourse(Course course) {
+	std::vector<std::string> coursePrerequsites = course.getCoursePrerequisites();
 	std::string prerequisites;
 	// formats output for prerequisites, if there are any
-	if (course.coursePrerequisites.size() == 1) {
-		prerequisites = course.coursePrerequisites[0];
-	} else if (course.coursePrerequisites.size() > 1) {
-		for (int i = 0; i < course.coursePrerequisites.size() - 1; i++) {
-			prerequisites += course.coursePrerequisites[i] + ", ";
+	if (coursePrerequsites.size() == 1) {
+		prerequisites = course.getCoursePrerequisites()[0];
+	} else if (coursePrerequsites.size() > 1) {
+		for (int i = 0; i < coursePrerequsites.size() - 1; i++) {
+			prerequisites += coursePrerequsites[i] + ", ";
 		}
-		prerequisites += course.coursePrerequisites.back();
+		prerequisites += coursePrerequsites.back();
 	} else {
 		prerequisites = "n/a";
 	}
 
 	// prints out the course details
-	std::cout << course.courseId << ", "
-			  << course.courseName << std::endl;
+	std::cout << course.getCourseId() << ", "
+			  << course.getCourseName() << std::endl;
 	std::cout << "Prerequisites: " << prerequisites << std::endl;
 }
 
@@ -42,25 +43,24 @@ void loadCourses(const std::string& inputFilePath, Courses* coursesBst) {
 	std::string currentLine;
 	try {
 		while (std::getline(file, currentLine)) {
-			// create a data structure and add to the collection of courses
-			Course course;
-
 			std::stringstream ss(currentLine);
-			std::string word;
+			std::string word, id, name;
+			std::vector<std::string> prerequisites;
 			int index = 0;
 			while (!ss.eof()) {
 				getline(ss, word, ',');
 				word = std::regex_replace( word, std::regex(R"(\r\n|\r|\n)"), "");
 				if (index == 0) {
-					course.courseId = word;
+					id = word;
 				} else if (index == 1) {
-					course.courseName = word;
+					name = word;
 				} else {
-					course.coursePrerequisites.push_back(word);
+					prerequisites.push_back(word);
 				}
 				index++;
 			}
-
+			// create a data structure and add to the collection of courses
+			Course course = Course(id, name, prerequisites);
 			// add this course to the tree
 			coursesBst->Insert(course);
 		}
@@ -105,7 +105,7 @@ int main() {
 				std::cin >> courseKey;
 				course = coursesBst->Search(courseKey);
 
-				if (!course.courseId.empty()) {
+				if (!course.getCourseId().empty()) {
 					displayCourse(course);
 				} else {
 					std::cout << "Course Id " << courseKey << " not found." << std::endl;

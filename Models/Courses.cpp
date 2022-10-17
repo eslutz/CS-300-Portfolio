@@ -80,14 +80,11 @@ Course Courses::Search(std::string courseId) {
 	// keep looping downwards until bottom reached or matching courseId found
 	while (cur != nullptr) {
 		// if match found, return current course
-		if (courseId.compare(cur->course.courseId) == 0) {
-			return cur->course;
-		}
-		else if (cur->course.courseId.compare(courseId) == 0) {
+		if (cur->course.getCourseId().compare(courseId) == 0) {
 			return cur->course;
 		}
 		// if course is smaller than current node then traverse left
-		else if (courseId.compare(cur->course.courseId) < 0) {
+		else if (courseId.compare(cur->course.getCourseId()) < 0) {
 			cur = cur->left;
 		}
 		// else larger so traverse right
@@ -108,7 +105,7 @@ Course Courses::Search(std::string courseId) {
  */
 void Courses::addNode(Node *node, Course course) {
 	// if node is smaller than add to left
-	if (node != nullptr && (node->course.courseId.compare(course.courseId) > 0)) {
+	if (node != nullptr && (node->course.getCourseId().compare(course.getCourseId()) > 0)) {
 		// if no left node
 		if (node->left == nullptr) {
 			// this node becomes left
@@ -121,7 +118,7 @@ void Courses::addNode(Node *node, Course course) {
 		}
 	}
 	// else
-	else if (node != nullptr && (node->course.courseId.compare(course.courseId) < 0)) {
+	else if (node != nullptr && (node->course.getCourseId().compare(course.getCourseId()) < 0)) {
 		// if no right node
 		if (node->right == nullptr) {
 			// this node becomes right
@@ -154,8 +151,8 @@ void Courses::inOrder(Node *node) {
 		// inOrder left
 		inOrder(node->left);
 		// output courseID and courseName
-		std::cout << node->course.courseId << ", "
-				  << node->course.courseName << std::endl;
+		std::cout << node->course.getCourseId() << ", "
+				  << node->course.getCourseName() << std::endl;
 		// inOder right
 		inOrder(node->right);
 	}
@@ -169,8 +166,8 @@ void Courses::postOrder(Node *node) {
 		// postOrder right
 		postOrder(node->right);
 		// output courseID and courseName
-		std::cout << node->course.courseId << ", "
-				  << node->course.courseName << std::endl;
+		std::cout << node->course.getCourseId() << ", "
+				  << node->course.getCourseName() << std::endl;
 	}
 }
 
@@ -178,11 +175,11 @@ void Courses::preOrder(Node *node) {
 	// if node is not equal to nullptr
 	if (node != nullptr) {
 		// output courseID and courseName
-		std::cout << node->course.courseId << ", "
-			 << node->course.courseName << std::endl;
+		std::cout << node->course.getCourseId() << ", "
+			 << node->course.getCourseName() << std::endl;
 		// preOrder left
 		preOrder(node->left);
-		// preOrder right      
+		// preOrder right
 		preOrder(node->right);
 	}
 }
@@ -192,11 +189,11 @@ Node *Courses::removeNode(Node *node, const std::string courseId) {
 		return node;
 	}
 	// if course is smaller than current node then traverse left
-	else if (courseId.compare(node->course.courseId) < 0) {
+	else if (courseId.compare(node->course.getCourseId()) < 0) {
 		node->left = removeNode(node->left, courseId);
 	}
 	// else if course is larger than current node then traverse right
-	else if (courseId.compare(node->course.courseId) > 0) {
+	else if (courseId.compare(node->course.getCourseId()) > 0) {
 		node->right = removeNode(node->right, courseId);
 	}
 	// else match point found
@@ -228,7 +225,7 @@ Node *Courses::removeNode(Node *node, const std::string courseId) {
 				tmp = tmp->left;
 			}
 			node->course = tmp->course;
-			node->right = removeNode(node->right, tmp->course.courseId);
+			node->right = removeNode(node->right, tmp->course.getCourseId());
 		}
 	}
 	return node;
