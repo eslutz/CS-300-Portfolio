@@ -1,4 +1,4 @@
-# CS-300-Project
+# CS-300-Portfolio
 
 Project from CS-300 Data Structures and Algorithms: Analysis and Design.
 
